@@ -9,6 +9,7 @@ setup(
     author='Abram C. Isola',
     author_email='abram@isola.mn',
     url='https://github.com/aisola/pyfeatures',
+    download_url="https://github.com/aisola/pyfeatures/archive/v0.1.0.tar.gz",
     keywords=['feature', 'features', 'rollout', 'tagging', 'releases', 'flagging', 'startups'],
     classifiers=[
         "Development Status :: 4 - Beta",

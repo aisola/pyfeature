@@ -9,3 +9,5 @@ __all__ = [
     "ALL",
     "NONE"
 ]
+
+__version__ = "0.1.1"

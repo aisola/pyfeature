@@ -1,15 +1,15 @@
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='pyfeatures',
     packages=['pyfeatures', 'pyfeatures.storage'],
-    version='0.1.0',
+    version='0.1.1',
     description='Python feature flagging. Similar to Rollout.',
     author='Abram C. Isola',
     author_email='abram@isola.mn',
     url='https://github.com/aisola/pyfeatures',
-    download_url="https://github.com/aisola/pyfeatures/archive/v0.1.0.tar.gz",
+    download_url="https://github.com/aisola/pyfeatures/archive/v0.1.1.tar.gz",
     keywords=['feature', 'features', 'rollout', 'tagging', 'releases', 'flagging', 'startups'],
     classifiers=[
         "Development Status :: 4 - Beta",

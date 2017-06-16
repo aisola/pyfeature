@@ -1,5 +1,5 @@
 
-from pyrollout.storage import FeatureStorage
+from .base import FeatureStorage
 
 
 class MemoryStorage(FeatureStorage):

@@ -1,8 +1,8 @@
 
 import unittest
 
-from pyrollout import Feature
-from pyrollout.storage import FeatureStorage
+from pyfeatures import Feature
+from pyfeatures.storage import FeatureStorage
 
 
 class TestFeatureStorage(unittest.TestCase):

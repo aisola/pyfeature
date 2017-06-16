@@ -1,5 +1,5 @@
 
-from pyrollout.storage import User
+from pyfeatures.storage import User
 
 
 class UserTester(User):

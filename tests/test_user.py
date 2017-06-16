@@ -1,7 +1,7 @@
 
 import unittest
 
-from pyrollout.storage import User
+from pyfeatures.storage import User
 
 
 class TestUser(unittest.TestCase):

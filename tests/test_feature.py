@@ -4,7 +4,7 @@ import uuid
 
 from .user import UserTester
 
-from pyrollout.feature import Feature, ALL, NONE
+from pyfeatures.feature import Feature, ALL, NONE
 
 
 class TestFeature(unittest.TestCase):

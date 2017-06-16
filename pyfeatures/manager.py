@@ -1,17 +1,18 @@
 
 
-class Rollout(object):
+class Manager(object):
 
     def __init__(self, *, feature_storage=None, undefined_feature_access=False):
         """
-        Manage feature flags for groups, users, or on a percentage basis. This
-        uses pluggable persistence.
+        Manages feature flags for groups, users, or on a percentage basis. This
+        uses pluggable persistence so that there's no dependecy on any specific
+        persistence mechanism.
 
         :param feature_storage: Object to manage storage of feature definitions
         :param undefined_feature_access: Should undefined features be allowed (default:True) or denied (False) access?
         """
         if feature_storage is None:
-            from pyrollout.storage.memory import MemoryStorage
+            from pyfeatures.storage.memory import MemoryStorage
             self.feature_storage = MemoryStorage()
         else:
             self.feature_storage = feature_storage
@@ -22,7 +23,7 @@ class Rollout(object):
         """
         Check whether a user has access to the given feature.
 
-        :param user: The user object that implements pyrollout.storage.User
+        :param user: The user object that implements pyfeatures.storage.User
         :param feature_name: Name of the feature to check if the user has access.
         :return: True if user has access, otherwise False
         """
@@ -33,7 +34,7 @@ class Rollout(object):
 
     def set_feature(self, feature):
         """
-        Add a feature to be handled by this instance of rollout
+        Add a feature to be handled by this manager.
 
         :param feature: New feature to add
         """

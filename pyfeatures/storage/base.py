@@ -1,7 +1,8 @@
 
 class FeatureStorage(object):
     """
-    Base class for feature storages, which are used to read or persist the rollout data.
+    Base class for feature storages, which are used to read or persist feature
+    data.
     """
 
     def get_feature_by_name(self, feature_name):

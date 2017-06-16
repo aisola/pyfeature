@@ -17,7 +17,7 @@ class Feature(object):
         :param users: A list of user IDs that should have access.
         :param groups: A list of group names to which access is allowed. "ALL" and "NONE" are special names.
         :param percentage: A percentage of the user base that should receive access to this feature. See can_percentage
-        :param randomized: Whether or not the percentage should be kind of randomized. Default: False
+        :param randomize: Whether or not the percentage should be kind of randomized. Default: False
         """
         self.name = name
         self.users = users if users is not None else []
@@ -67,9 +67,11 @@ class Feature(object):
         :param user: Object representing the user and implementing pyrollout.storage.User
         :return: True if user can access the feature, otherwise False
         """
-        if self.can_group(user):
+        if self.can_user(user):
             return True
-        elif self.can_user(user):
+        elif self.can_group(user):
+            return True
+        elif self.can_percentage(user):
             return True
         else:
             return False
@@ -106,6 +108,9 @@ class Feature(object):
         :param user: Object representing the user and implementing pyrollout.storage.User
         :return: True if user can access the feature, otherwise False
         """
+        if self.percentage is None:
+            return False
+
         user_id = user.get_id()
         assert isinstance(user_id, int) or isinstance(user_id, uuid.UUID) or isinstance(user_id, str)
 

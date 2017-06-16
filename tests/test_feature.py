@@ -18,20 +18,20 @@ class TestFeature(unittest.TestCase):
             feature = Feature()
 
     def test_feature_repr(self):
-        feature = Feature("name", users=["user"], groups=["group"])
+        feature = Feature("name", users=[1], groups=["group"])
         self.assertEqual(repr(feature), "Feature('name', groups=['group'])")
 
     def test_feature_str(self):
-        feature = Feature("name", users=["user"], groups=["group"])
-        self.assertEqual(str(feature), "<Feature name - Users:['user'] Groups:['group']>")
+        feature = Feature("name", users=[1], groups=["group"])
+        self.assertEqual(str(feature), "<Feature name - Users:[1] Groups:['group']>")
 
     def test_create_feature_with_groups(self):
         feature = Feature("test", groups=["test-group"])
         self.assertEqual(feature.groups, ["test-group"])
 
     def test_create_feature_with_users(self):
-        feature = Feature("test", users=["test-user-id"])
-        self.assertEqual(feature.users, ["test-user-id"])
+        feature = Feature("test", users=[1])
+        self.assertEqual(feature.users, [1])
 
     def test_create_feature_percentage(self):
         feature = Feature("test", percentage=50)
@@ -47,8 +47,8 @@ class TestFeature(unittest.TestCase):
             feature = Feature("test", groups=[ALL, NONE])
 
     def test_feature_can_group(self):
-        regular_dude = UserTester("regular-dude")
-        vip_dude = UserTester("vip-dude", groups=["vips"])
+        regular_dude = UserTester(1)
+        vip_dude = UserTester(1, groups=["vips"])
 
         feature_all = Feature("all-feature", groups=[ALL])
         feature_none = Feature("none-feature", groups=[NONE])
@@ -67,13 +67,13 @@ class TestFeature(unittest.TestCase):
         self.assertTrue(feature_vip.can_group(vip_dude))
 
     def test_feature_can_users_by_id(self):
-        dude_1 = UserTester("1")
-        dude_2 = UserTester("2")
-        dude_3 = UserTester("3")
+        dude_1 = UserTester(1)
+        dude_2 = UserTester(2)
+        dude_3 = UserTester(3)
 
-        feature_all = Feature("all-feature", users=["1", "2", "3"])
-        feature_none = Feature("none-feature", users=["4"])
-        feature_some = Feature("some-feature", users=["1", "3"])
+        feature_all = Feature("all-feature", users=[1, 2, 3])
+        feature_none = Feature("none-feature", users=[4])
+        feature_some = Feature("some-feature", users=[1, 3])
 
         # Make sure all users can access the all feature
         self.assertTrue(feature_all.can_user(dude_1))
@@ -159,14 +159,22 @@ class TestFeature(unittest.TestCase):
         self.assertTrue(feature.can_percentage(dude_8))
 
     def test_feature_can(self):
-        user_id = UserTester("A")
-        user_group = UserTester("B", groups=["group"])
+        user_id = UserTester("76aebbea-f25c-4d34-a920-f3077395ef8e")
+        user_group = UserTester("4f537c77-0fd5-4504-b2e9-d3dd9836b159", groups=["group"])
+        user_pct = UserTester(1)
 
-        feature_by_id = Feature("byid", users=["A"])
+        feature_by_id = Feature("byid", users=["76aebbea-f25c-4d34-a920-f3077395ef8e"])
         feature_by_group = Feature("bygroup", groups=["group"])
+        feature_by_pct = Feature("bygroup", percentage=10)
 
         self.assertTrue(feature_by_id.can(user_id))
         self.assertFalse(feature_by_id.can(user_group))
+        self.assertFalse(feature_by_id.can(user_pct))
 
         self.assertFalse(feature_by_group.can(user_id))
         self.assertTrue(feature_by_group.can(user_group))
+        self.assertFalse(feature_by_group.can(user_pct))
+
+        self.assertTrue(feature_by_pct.can(user_id))
+        self.assertFalse(feature_by_pct.can(user_group))
+        self.assertTrue(feature_by_pct.can(user_pct))
